@@ -10,10 +10,10 @@ int main()
         if (luku % 3 == 0 and luku % 7 == 0){
             std::cout << "zip boing" << std::endl;
         }
-        if (luku % 3 == 0){
+        else if (luku % 3 == 0){
             std::cout << "zip" << std::endl;
         }
-        if (luku % 7 == 0){
+        else if (luku % 7 == 0){
             std::cout << "boing" << std::endl;
         }
         else{
