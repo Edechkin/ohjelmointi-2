@@ -7,7 +7,7 @@ int main()
 {
     double syote;
     float mean;
-    double summa;
+    double summa = 0;
     std::cout << "From how many integer numbers you want to count the mean value? ";
     int maara;
     std::cin >> maara;
