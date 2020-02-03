@@ -9,7 +9,7 @@ public:
     std::string get_name();
         int get_points();
         void add_points(int to_be_added);
-        bool won();
+        bool has_won();
 
 private:
     std::string name;

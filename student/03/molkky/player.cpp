@@ -17,7 +17,7 @@ std::string Player::get_name() {
     return this->name;
 }
 
-bool Player::won() {
+bool Player::has_won() {
     return this->points == 50;
 }
 

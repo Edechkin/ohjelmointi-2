@@ -28,7 +28,7 @@ int main()
         std::cin >> pts;
 
         in_turn->add_points(pts);
-        if (in_turn->won())
+        if (in_turn->has_won())
         {
             std::cout << "Game over! The winner is " << in_turn->get_name() << "!" << std::endl;
             return EXIT_SUCCESS;
