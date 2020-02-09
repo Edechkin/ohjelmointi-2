@@ -68,8 +68,10 @@ bool is_ordered_non_strict_ascending(const std::vector <int>& ints){
 
 bool is_geometric_series(const std::vector <int>& ints){
     int c = 0;
-    int prev = 0;
-    double rel = static_cast <double> (ints.at(0)) / static_cast <double> (ints.at(1));
+    int first = ints.at(0);
+    int second = ints.at(1);
+    double prev = 0;
+    double rel = static_cast <double> (first) / static_cast <double> (second);
     for (int item : ints){
         if (item == 0){
             return false;
