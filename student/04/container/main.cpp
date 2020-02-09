@@ -16,7 +16,7 @@ void read_integers(std::vector< int >& ints, int count)
 // TODO: Implement your solution here
 bool same_values(const std::vector <int>& ints){
     int c = 0;
-    int prev;
+    int prev = 0;
     if (ints.at(0) != ints.at(1)){
         return false;
     }
@@ -36,7 +36,7 @@ bool same_values(const std::vector <int>& ints){
 
 bool is_arithmetic_series(const std::vector <int>& ints){
     int c = 0;
-    int prev;
+    int prev = 0;
     int diff = ints.at(1) - ints.at(0);
     for (int item : ints){
         if ( c > 1){
@@ -52,7 +52,7 @@ bool is_arithmetic_series(const std::vector <int>& ints){
 
 bool is_ordered_non_strict_ascending(const std::vector <int>& ints){
     int c = 0;
-    int prev;
+    int prev = 0;
 
     for (int item : ints){
         if ( c > 1){
@@ -68,7 +68,7 @@ bool is_ordered_non_strict_ascending(const std::vector <int>& ints){
 
 bool is_geometric_series(const std::vector <int>& ints){
     int c = 0;
-    int prev;
+    int prev = 0;
     double rel = ints.at(0) / ints.at(1);
     for (int item : ints){
         if (item == 0){
