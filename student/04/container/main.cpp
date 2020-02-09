@@ -22,9 +22,9 @@ bool same_values(const std::vector <int>& ints){
     }
     else{
         for (int item : ints){
-                if ( c > 1){
-                    if (item != prev){
-                            return false;
+            if ( c > 1){
+                if (item != prev){
+                        return false;
                     }
                 }
             prev = item;
@@ -39,9 +39,9 @@ bool is_arithmetic_series(const std::vector <int>& ints){
     int prev;
     int diff = ints.at(1) - ints.at(0);
     for (int item : ints){
-            if ( c > 1){
-                if (item - prev != diff){
-                        return false;
+        if ( c > 1){
+            if (item - prev != diff){
+                    return false;
                 }
             }
         prev = item;
@@ -55,9 +55,9 @@ bool is_ordered_non_strict_ascending(const std::vector <int>& ints){
     int prev;
 
     for (int item : ints){
-            if ( c > 1){
-                if (item < prev){
-                        return false;
+        if ( c > 1){
+            if (item < prev){
+                    return false;
                 }
             }
         prev = item;
