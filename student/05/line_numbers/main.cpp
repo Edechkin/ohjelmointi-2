@@ -19,7 +19,7 @@ int main()
     return EXIT_FAILURE;
     }
     ofstream otiedosto(syote2);
-    int i = 0;
+    int i = 1;
     string rivi;
     while( getline(stiedosto, rivi)){
         otiedosto << i << " " << rivi << endl;
