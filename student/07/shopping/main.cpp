@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <set>
 
 using namespace std;
 
@@ -43,7 +44,7 @@ void print_chains(map<string, map<string, vector<Product>>> data){
     }
 }
 
-void print_stores(map<string, map<string, vector<Product>>> data, string chain) {
+void print_stores(map<string, map<string, vector<Product>>> data, string chain){
         for ( auto store : data[chain] ) {
             cout  << "  " << store.first << endl;
     }
@@ -57,7 +58,60 @@ vector<string> get_command(string input){
     return parts;
 }
 
+pair<double, map<string, vector<string>>> find_cheapest(string productToFind,
+                     map<string, map<string, vector<Product>>> catalogue){
+    double reference = 1000000;
+    pair<double, map<string, vector<string>>> list ;
+    for (const auto chain : catalogue) {
+        for (const auto store : chain.second){
+            for (const auto product : store.second) {
+                if (product.productName == productToFind) {
+                    if (product.price < reference) {
+                        if (product.price > 0) {
+                        reference = product.price;
+                        list.second.clear();
+                        list.first = reference;
+                        list.second[chain.first].push_back(store.first);
+                        }                        
+                    }
+                    else if (product.price == reference) {
+                        list.second[chain.first].push_back(store.first);
+                    }
+                }                
+            }
+        }       
+    }
+    return list;
+}
 
+void print_cheapest(pair<double, map<string, vector<string>>> cheapestData) {
+    cout << cheapestData.first << endl;
+    for (const auto chain : cheapestData.second) {
+        for (const auto store : chain.second)
+            cout << chain.first << " " << store << endl;
+    }
+}
+
+void collect_products(map<string, map<string, vector<Product>>> data) {
+    set<string> products;
+    for (const auto chain : data) {
+        for (const auto store : chain.second) {
+            for (const auto product : store.second) {
+                products.insert(product.productName);
+            }
+        }
+    }
+    for (const auto product : products) {
+            cout << product << endl;
+    //return products;
+    }
+}
+
+//void print_products(set<string> products) {
+    //for (const auto product : products) {
+      //  cout << product << endl;
+    //}
+//}
 
 int main()
 {
@@ -118,6 +172,8 @@ int main()
 
     }
 
+
+
     while(true){
         cout << "> ";
         string input;
@@ -157,13 +213,60 @@ int main()
                 cout << "Error: error in command " << command << endl;
                 continue;
             }
-            else if (data.find(parts.at(0)) == data.end() or
-                      data[parts.at(0)].find(parts.at(1)) == data.end()) {
+            else if (data.find(parts.at(0)) == data.end()){
+                cout << "Error: unknown chain name " << endl;
+                continue;
+            }
+            else if( data[parts.at(0)].find(parts.at(1))
+                     == data[parts.at(0)].end()) {
+                cout << "Error: unknown store " << endl;
+                continue;
+            }
+            else {
+                for (const auto product : data[parts.at(0)][parts.at(1)])
+                    if (product.price != -1){
+                        cout << product.productName << " " << product.price
+                             << endl;
+                    }
+                    else {
+                        cout << product.productName << " OUT OF STOCK" << endl;
+                    }
+            }
+        }
+        else if (command == "cheapest") {
+            if ( parts.size() != 1) {
                 cout << "Error: error in command " << command << endl;
                 continue;
             }
+            int test = 0;
+            for (const auto chain : data){
+                for (const auto store : chain.second){
+                    for (const auto product : store.second) {
+                        if (product.productName == parts.at(0)) {
+                            ++test;
+                        }
+                    }
+                }
+            }
+            if (test == 0) {
+            cout << "The product is not part of product selection" << endl;
+            continue;
+            }
+            pair<double, map<string, vector<string>>> cheapest =
+            find_cheapest(parts.at(0), data);
+            print_cheapest(cheapest);
+
         }
 
+        else if (command == "products") {
+            if ( parts.size() != 0) {
+                cout << "Error: error in command " << command << endl;
+                continue;
+            //set<string> products = collect_products(data);
+            //print_products(products);
+            }
+            collect_products(data);
+        }
         else {
             cout << "Error: unknown command: " << command << endl;
         }
