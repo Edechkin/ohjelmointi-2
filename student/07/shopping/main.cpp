@@ -98,12 +98,19 @@ pair<double, map<string, vector<string>>> find_cheapest(string productToFind,
         for (const auto store : chain.second){
             for (const auto product : store.second) {
                 if (product.productName == productToFind) {
-                    if (product.price < reference) {
-                        if (product.price > 0) {
+                    if (product.price < reference or product.price == -1
+                            or reference == -1.0) {
+                        if (product.price > -1 ) {
                         reference = product.price;
                         list.second.clear();
                         list.first = reference;
                         list.second[chain.first].push_back(store.first);
+                        }
+                        else {
+                            if (list.second.empty()){
+                                list.first = -1.0;
+                                reference = -1.0;
+                            }
                         }
                     }
                     else if (product.price == reference) {
@@ -121,13 +128,18 @@ void print_cheapest(pair<double, map<string, vector<string>>> cheapestData) {
  *
  * @param cheapestData contains price of the product and stores who sell it on that price
  */
-    cout<<fixed<<setprecision(2) << cheapestData.first << " euros" << endl;
+    if (cheapestData.first == -1.0) {
+        cout << "The product is temporarily out of stock everywhere" << endl;
+    }
+    else{
+        cout<<fixed<<setprecision(2) << cheapestData.first << " euros" << endl;
 
 
-    for (const auto chain : cheapestData.second) {
-        for (const auto store : chain.second)
+        for (const auto chain : cheapestData.second) {
+            for (const auto store : chain.second)
 
-            cout << chain.first << " " << store << endl;
+                cout << chain.first << " " << store << endl;
+        }
     }
 }
 
@@ -199,8 +211,14 @@ int main()
             bool foundItem = false;
                     for (auto product : data[chain][store]){
                         if ( product.productName == tmpData.at(2)) {
-                            data[chain][store][findItem].price = stod(tmpData.at(3));
+                            if(tmpData.at(3) == "out-of-stock") {
+                                data[chain][store][findItem].price = -1.0;
+                            }
+                            else{
+                            data[chain][store][findItem].price =
+                                    stod(tmpData.at(3));
                             foundItem = true;
+                            }
                         }
                         else{
                            findItem++ ;
