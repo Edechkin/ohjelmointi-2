@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <iomanip>
 #include <set>
 
 using namespace std;
@@ -92,7 +93,7 @@ void print_cheapest(pair<double, map<string, vector<string>>> cheapestData) {
     }
 }
 
-void collect_products(map<string, map<string, vector<Product>>> data) {
+void print_all_products(map<string, map<string, vector<Product>>> data) {
     set<string> products;
     for (const auto chain : data) {
         for (const auto store : chain.second) {
@@ -102,15 +103,13 @@ void collect_products(map<string, map<string, vector<Product>>> data) {
         }
     }
     for (const auto product : products) {
-            cout << product << endl;
-    //return products;
-    }
+            cout << product << endl;  
+}
 }
 
-//void print_products(set<string> products) {
-    //for (const auto product : products) {
-      //  cout << product << endl;
-    //}
+//bool check_overlap(map<string, map<string, vector<Product>>> data, map chain,
+  //                 string) {
+    
 //}
 
 int main()
@@ -149,9 +148,31 @@ int main()
         else {
             product = {tmpData.at(2), stod(tmpData.at(3))};
         }
+        if (data.empty()) {    
+            data[tmpData.at(0)][tmpData.at(1)].push_back(product);
 
-        data[tmpData.at(0)][tmpData.at(1)].push_back(product);
+        }
+         
+        else {
+            string chain = tmpData.at(0);
+            string store = tmpData.at(1);
+            string name = product.productName;
+            int findItem = 0;
+            bool foundItem = false;
+                    for (auto product : data[chain][store]){
+                        if ( product.productName == tmpData.at(2)) {
+                            data[chain][store][findItem].price = stod(tmpData.at(3));
+                            foundItem = true;
+                        }
+                        else{
+                           findItem++ ;
+                        }
+                    }
+                    if (!foundItem) {
+                        data[tmpData.at(0)][tmpData.at(1)].push_back(product);
+                    }
 
+        }
     }
     file.close();
     for ( auto tietopari : data ) {
@@ -169,7 +190,6 @@ int main()
                 }
             }
         }
-
     }
 
 
@@ -225,8 +245,9 @@ int main()
             else {
                 for (const auto product : data[parts.at(0)][parts.at(1)])
                     if (product.price != -1){
-                        cout << product.productName << " " << product.price
-                             << endl;
+                        cout << product.productName << " "
+                             << fixed<<setprecision(2)<< product.price << endl;
+
                     }
                     else {
                         cout << product.productName << " OUT OF STOCK" << endl;
@@ -265,7 +286,7 @@ int main()
             //set<string> products = collect_products(data);
             //print_products(products);
             }
-            collect_products(data);
+            print_all_products(data);
         }
         else {
             cout << "Error: unknown command: " << command << endl;
