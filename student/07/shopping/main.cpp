@@ -1,3 +1,15 @@
+/* This program stores and processes data from a file related to
+* product range of retail chains.
+* Prints all chains
+* Prints chain's stores
+* Prints product selection of specific store
+* Prints cheapest product on the market and where to find it
+*Names: Tommi Mehtanen, Eetu Jokinen
+* Student numbers: 279330, 273281
+* UserID: teekkart ( Necessary due to gitlab folder naming. )
+* E-Mails: tommi.mehtanen@tuni.fi; eetu.jokinen@tuni.fi
+* */
+
 #include <iostream>
 #include <map>
 #include <string>
@@ -175,24 +187,6 @@ int main()
         }
     }
     file.close();
-    for ( auto tietopari : data ) {
-        cout << tietopari.first << endl;
-        for ( auto tpari : tietopari.second ) {
-            cout  << "  " << tpari.first << endl;
-            for (auto tuote : tpari.second){
-                if (tuote.price != -1.0){
-                cout << "      " << tuote.productName << "   "
-                     << tuote.price << endl;
-                }
-                else {
-                    cout << "      " << tuote.productName << "   "
-                         << "OUT OF STOCK" << endl;
-                }
-            }
-        }
-    }
-
-
 
     while(true){
         cout << "> ";
