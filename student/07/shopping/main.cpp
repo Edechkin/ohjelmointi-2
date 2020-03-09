@@ -15,10 +15,11 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <iomanip>
 #include <set>
+#include <iomanip>
 
 using namespace std;
+
 
 struct Product {
     string productName;
@@ -26,6 +27,7 @@ struct Product {
 };
 
 vector<string> split(string line, char sep, bool passEmpty = false) {
+
     vector<string> result = {};
     string temp;
     for (auto i : line) {
@@ -52,13 +54,23 @@ vector<string> split(string line, char sep, bool passEmpty = false) {
 }
 
 void print_chains(map<string, map<string, vector<Product>>> data){
+/* Prints all chains from data structure
+ *
+ * @param data contains stored data from a file
+ */
     for ( auto chainName : data ) {
         cout << chainName.first << endl;
     }
 }
 
 void print_stores(map<string, map<string, vector<Product>>> data, string chain){
-        for ( auto store : data[chain] ) {
+/* Prints all stores of wanted chain
+ *
+ * @param data contains stored data from a file
+ * @param chain is a shopping chain that info we want
+ */
+
+    for ( auto store : data[chain] ) {
             cout  << "  " << store.first << endl;
     }
 }
@@ -73,6 +85,13 @@ vector<string> get_command(string input){
 
 pair<double, map<string, vector<string>>> find_cheapest(string productToFind,
                      map<string, map<string, vector<Product>>> catalogue){
+/* Finds the cheapest product on the market
+ *
+ * @param productToFind is users product that he wants info about
+ * @param catalogue contains stored data from a file
+ *
+ * returns list of cheapest price and stores who got that price
+  */
     double reference = 1000000;
     pair<double, map<string, vector<string>>> list ;
     for (const auto chain : catalogue) {
@@ -85,27 +104,38 @@ pair<double, map<string, vector<string>>> find_cheapest(string productToFind,
                         list.second.clear();
                         list.first = reference;
                         list.second[chain.first].push_back(store.first);
-                        }                        
+                        }
                     }
                     else if (product.price == reference) {
                         list.second[chain.first].push_back(store.first);
                     }
-                }                
+                }
             }
-        }       
+        }
     }
     return list;
 }
 
 void print_cheapest(pair<double, map<string, vector<string>>> cheapestData) {
-    cout << cheapestData.first << endl;
+/* Prints cheapest specific product on the market
+ *
+ * @param cheapestData contains price of the product and stores who sell it on that price
+ */
+    cout<<fixed<<setprecision(2) << cheapestData.first << " euros" << endl;
+
+
     for (const auto chain : cheapestData.second) {
         for (const auto store : chain.second)
+
             cout << chain.first << " " << store << endl;
     }
 }
 
 void print_all_products(map<string, map<string, vector<Product>>> data) {
+/* Prints all products on the market
+ *
+ * @param data contains stored data from inputfile
+ */
     set<string> products;
     for (const auto chain : data) {
         for (const auto store : chain.second) {
@@ -115,14 +145,9 @@ void print_all_products(map<string, map<string, vector<Product>>> data) {
         }
     }
     for (const auto product : products) {
-            cout << product << endl;  
+            cout << product << endl;
 }
 }
-
-//bool check_overlap(map<string, map<string, vector<Product>>> data, map chain,
-  //                 string) {
-    
-//}
 
 int main()
 {
@@ -132,7 +157,7 @@ int main()
     getline(cin, fileName);
     ifstream file(fileName);
     if (not file){
-        cout << "Error! The input file cannot be opened." << endl;
+        cout << "Error: The input file cannot be opened." << endl;
         return EXIT_FAILURE;
     }
     string row;
@@ -160,11 +185,12 @@ int main()
         else {
             product = {tmpData.at(2), stod(tmpData.at(3))};
         }
-        if (data.empty()) {    
+
+        if (data.empty()) {
             data[tmpData.at(0)][tmpData.at(1)].push_back(product);
 
         }
-         
+
         else {
             string chain = tmpData.at(0);
             string store = tmpData.at(1);
@@ -188,6 +214,8 @@ int main()
     }
     file.close();
 
+    // Userinterface for info searches
+
     while(true){
         cout << "> ";
         string input;
@@ -195,16 +223,19 @@ int main()
         vector<string> parts = split(input, ' ');
         string command = parts.at(0);
         parts.erase(parts.begin());
-        //for (auto const& value : parts) {
-          //  std::cout << value << std::endl;
-        //}
         if (command == "quit") {
             return EXIT_SUCCESS;
         }
 
         else if (command == "chains") {
+            if ( parts.size() != 0) {
+                cout << "Error: error in command " << command << endl;
+                continue;
+            }
+            else {
             print_chains(data);
             continue;
+            }
         }
 
         else if (command == "stores") {
@@ -238,13 +269,13 @@ int main()
             }
             else {
                 for (const auto product : data[parts.at(0)][parts.at(1)])
-                    if (product.price != -1){
+                    if (product.price != -1 and product.price != 0.0){
                         cout << product.productName << " "
-                             << fixed<<setprecision(2)<< product.price << endl;
-
+                             << fixed<<setprecision(2) << product.price
+                             << endl;
                     }
                     else {
-                        cout << product.productName << " OUT OF STOCK" << endl;
+                        cout << product.productName << " out of stock" << endl;
                     }
             }
         }
@@ -277,8 +308,6 @@ int main()
             if ( parts.size() != 0) {
                 cout << "Error: error in command " << command << endl;
                 continue;
-            //set<string> products = collect_products(data);
-            //print_products(products);
             }
             print_all_products(data);
         }
