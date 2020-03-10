@@ -17,6 +17,7 @@
 #include <fstream>
 #include <set>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,6 +25,10 @@ using namespace std;
 struct Product {
     string productName;
     double price;
+
+    bool operator <(const Product& rhs) {
+        return  productName < rhs.productName ;
+    }
 };
 
 vector<string> split(string line, char sep, bool passEmpty = false) {
@@ -99,7 +104,7 @@ pair<double, map<string, vector<string>>> find_cheapest(string productToFind,
             for (const auto product : store.second) {
                 if (product.productName == productToFind) {
                     if (product.price < reference or product.price == -1
-                            or reference == -1.0) {
+                            or reference == -1) {
                         if (product.price > -1 ) {
                         reference = product.price;
                         list.second.clear();
@@ -209,10 +214,12 @@ int main()
             string name = product.productName;
             int findItem = 0;
             bool foundItem = false;
+
                     for (auto product : data[chain][store]){
                         if ( product.productName == tmpData.at(2)) {
                             if(tmpData.at(3) == "out-of-stock") {
                                 data[chain][store][findItem].price = -1.0;
+                                foundItem = true;
                             }
                             else{
                             data[chain][store][findItem].price =
@@ -286,8 +293,11 @@ int main()
                 continue;
             }
             else {
-                for (const auto product : data[parts.at(0)][parts.at(1)])
+                vector<Product> tuotteet = data[parts.at(0)][parts.at(1)];
+                sort(tuotteet.begin(), tuotteet.end());
+                for (const auto product : tuotteet)
                     if (product.price != -1 and product.price != 0.0){
+
                         cout << product.productName << " "
                              << fixed<<setprecision(2) << product.price
                              << endl;
