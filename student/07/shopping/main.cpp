@@ -174,7 +174,7 @@ int main()
     getline(cin, fileName);
     ifstream file(fileName);
     if (not file){
-        cout << "Error: The input file cannot be opened" << endl;
+        cout << "Error: the input file cannot be opened" << endl;
         return EXIT_FAILURE;
     }
     string row;
