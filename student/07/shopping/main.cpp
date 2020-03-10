@@ -174,7 +174,7 @@ int main()
     getline(cin, fileName);
     ifstream file(fileName);
     if (not file){
-        cout << "Error: The input file cannot be opened." << endl;
+        cout << "Error: The input file cannot be opened" << endl;
         return EXIT_FAILURE;
     }
     string row;
@@ -234,7 +234,6 @@ int main()
                     if (!foundItem) {
                         data[tmpData.at(0)][tmpData.at(1)].push_back(product);
                     }
-
         }
     }
     file.close();
