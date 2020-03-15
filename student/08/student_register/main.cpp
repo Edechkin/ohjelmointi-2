@@ -81,6 +81,46 @@ bool is_valid_phone_number(const std::string number) {
     return true;
 }
 
+bool change_number(std::map<std::string, Student*> reg, std::string id){
+    if(reg.find(id) == reg.end()){
+        std::cout << "There is no student with the given number!" << std::endl;
+        return false;
+        //eli nyt siis ei ole löytynyt
+    }
+    std::string number = "";
+    std::cout << "Enter a new phone number: ";
+    std::getline(std::cin, number);
+    std::cout << std::endl;
+
+    if(!is_valid_phone_number(number)){
+        return false;
+    }
+
+    reg.at(id)->phone_number = number;
+    return true;
+}
+void write(std::map<std::string, Student*> reg, std::string file_name){
+    std::ofstream file(file_name);
+    if(!file){
+        return;
+    }
+    for(auto i : reg){
+        file << i.second->student_number
+             << ";"
+             << i.second->user_id
+             << ";"
+             << i.second->name
+             << ";"
+             << i.second->phone_number
+             << ";"
+             << i.second->email
+             << ";"
+             << i.second->skype
+             << std::endl;
+    }
+
+}
+
 
 int main() {
     std::string file_name = "";
@@ -136,7 +176,9 @@ int main() {
                 continue;
             }
             // TODO: Add functionality here
-
+            if(change_number(student_numbers, parts.at(1))){
+                write(user_ids, file_name);
+            }
 
         } else if(command == "Q" or command == "q") {
             // Deleting the data structure: deallocating memory and nullifying pointers
