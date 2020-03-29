@@ -31,3 +31,24 @@ void Cards::print_from_top_to_bottom(ostream& s) const{
     }
 }
 
+bool Cards::remove(int &id)
+{
+ id = 0;
+ return true;
+}
+
+bool Cards::bottom_to_top()
+{
+    return true;
+}
+
+bool Cards::top_to_bottom()
+{
+    return true;
+}
+
+void Cards::print_from_bottom_to_top(ostream &s)
+{
+    s << "";
+}
+
