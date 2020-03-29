@@ -31,21 +31,55 @@ void Cards::print_from_top_to_bottom(ostream& s) const{
     }
 }
 
-bool Cards::remove(int &id)
-{
- id = 0;
- return true;
+bool Cards::remove(int &id) {
+    if (top_ == nullptr) {
+        return false;
+    }
+    else {
+        Card_data* card_to_be_removed = top_;
+        id = card_to_be_removed->data;
+        top_ = top_->next;
+        delete card_to_be_removed;
+
+        return true;
+    }
 }
 
-bool Cards::bottom_to_top()
-{
+bool Cards::bottom_to_top() {
+    if (top_ == nullptr) {
+        return false;
+    }
+    if(top_->next == nullptr){
+        return true;
+    }
+    Card_data* one_from_bottom = top_;
+    while (one_from_bottom->next->next != nullptr) {
+        one_from_bottom = one_from_bottom->next;
+    }
+    Card_data* bottom = one_from_bottom->next;
+    bottom->next = top_;
+    top_ = bottom;
+    one_from_bottom->next = nullptr;
+
     return true;
 }
 
-bool Cards::top_to_bottom()
-{
+
+bool Cards::top_to_bottom() {
+    if (top_ == nullptr) {
+        return false;
+    }
+    Card_data* bottom = top_;
+    while(bottom->next != nullptr){
+        bottom = bottom->next;
+    }
+    bottom->next = top_;
+    top_ = top_->next;
+    bottom->next->next = nullptr;
+
     return true;
 }
+
 
 void Cards::print_from_bottom_to_top(ostream &s)
 {
