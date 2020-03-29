@@ -11,15 +11,21 @@ class Cards {
       Cards();
 
       // Adds a new card with the given id as the topmost element.
-      void add(int id);
+      void add(int id) {
+          id + 0;
+      }
+
 
       // Prints the content of the data structure with ordinal numbers to the
       // output stream given as a parameter starting from the first element.
-      void print_from_top_to_bottom(std::ostream& s) const;
-
+      void print_from_top_to_bottom(std::ostream& s) const{
+        s << "";
+      }
       // Removes the topmost card and passes it in the reference parameter id.
       // Returns false, if the data structure is empty, otherwise returns true.
-      bool remove(int& id);
+      bool remove(int& id) {
+          id + 0;
+      }
 
       // Moves the last element of the data structure as the first one.
       // Returns false, if the data structure is empty, otherwise returns true.
@@ -31,7 +37,9 @@ class Cards {
 
       // Prints the content of the data structure with ordinal numbers to the
       // output stream given as a parameter starting from the last element.
-      void print_from_bottom_to_top(std::ostream& s);
+      void print_from_bottom_to_top(std::ostream& s) {
+          s << "";
+      }
 
       // A dynamic data structure must have a destructor
       // that can be called to deallocate memory,
