@@ -125,7 +125,7 @@ int main() {
         }
         if (!test) {
             cout << "Error: unknown command." << endl;
-            break;
+            continue;
         }
 
 
