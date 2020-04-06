@@ -41,6 +41,7 @@ bool Cards::remove(int& id) {
 
 
 void Cards::reverse() {
+    if (top_ != nullptr) {
     shared_ptr<Card_data> prev = nullptr;
     shared_ptr<Card_data> curr = top_;
     shared_ptr<Card_data> next = curr->next;
@@ -52,6 +53,8 @@ void Cards::reverse() {
         curr->next = prev;
     }
     top_ = curr;
+    }
+
 }
 
 // Do not write the stubs of the methods remove and reverse by yourself here,
