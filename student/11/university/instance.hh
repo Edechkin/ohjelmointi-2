@@ -45,15 +45,20 @@ public:
     void set_starting_date(int year, int month, int day);
     std::string get_instance();
     std::vector<Account*> get_participants();
+    std::string get_course_id();
+    Course* get_course();
+    std::string get_starting_date();
+
+    void set_course_ptr(Course* ptr);
 
 private:
+    std::string course_id_;
     std::string starting_date_;
     int s_year_;
     int s_month_;
     int s_day_;
     std::string instance_;
     Course* course_ptr_;
-    std::string course_id_;
     std::vector<Account*> participants_;
 };
 

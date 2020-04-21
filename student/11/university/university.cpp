@@ -111,6 +111,7 @@ void University::add_instance(Params params) {
     int month = utils::today.get_month();
     int day = utils::today.get_day();
     n_instance->set_starting_date(year, month, day);
+    n_instance->set_course_ptr(courses_.at(params.at(0)));
     courses_.at(params.at(0))->new_instance(n_instance);
 
 }
@@ -155,28 +156,56 @@ void University::complete_course(Params params){
     if(param_errors(params)){
         return;
     }
-    Instance* inst = courses_.at(params.at(0))->get_instance(params.at(1));
+    Course* course = courses_.at(params.at(0));
+    Instance* inst = course->get_instance(params.at(1));
     Account* acc = accounts_.at(std::stoi(params.at(2)));
     if (acc->if_not_signed(inst)){
         std::cout << "No signups found on this instance." << std::endl;
         return;
     }
-    acc->complete_course(courses_.at(params.at(0)));
+    acc->complete_course(course, inst);
 }
 
 void University::print_signups(Params params){
-
-
+    Course* course = courses_.at(params.at(0));
+    std::vector<Instance*> instances = course->get_instances();
+    std::vector<Instance*>::iterator iter = instances.begin();
+    for (Instance* inst : instances){
+        //Instance* inst = courses_.at(params.at(0))->get_instance(courses_.at(i));
+        std::cout << inst->get_instance() << std::endl;
+        std::vector<Account*> p = inst->get_participants();
+        std::cout << INDENT << "Starting date: " << inst->get_starting_date() << std::endl;
+        std::cout  << INDENT << "Among of students: " << p.size() << std::endl;
+        for (Account* it : p){
+            std::cout << INDENT << it->get_account_number() << ": " << it->get_name() <<
+                         ", " << it->get_email() << std::endl;
+        }
+        ++iter;
+    }
 }
 
-void University::print_study_state(Params params) {
 
+
+void University::print_study_state(Params params) {
+    if ( accounts_.find(std::stoi(params.at(0))) == accounts_.end() ){
+        std::cout << CANT_FIND << params.at(0) << std::endl;
+        return;
+    }
+    Account* acc = accounts_.at(stoi(params.at(0)));
+    std::cout << "Current:" << std::endl;
+    acc->print_current_courses();
+    std::cout << "Completed:" << std::endl;
+    acc->print_completed();
 
 }
 
 void University::print_completed(Params params) {
-
-
+    if ( accounts_.find(std::stoi(params.at(0))) == accounts_.end() ){
+        std::cout << CANT_FIND << params.at(0) << std::endl;
+        return;
+    }
+    Account* acc = accounts_.at(stoi(params.at(0)));
+    acc->print_completed();
 }
 
 void University::set_date(Params params)

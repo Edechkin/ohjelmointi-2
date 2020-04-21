@@ -99,6 +99,9 @@ public:
      */
     int get_credits() const;
 
+    std::string get_name();
+    std::vector<Instance*> get_instances();
+
 private:
     std::string course_code_;
     std::string name_;

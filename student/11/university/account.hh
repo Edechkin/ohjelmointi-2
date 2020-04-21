@@ -43,13 +43,21 @@ public:
      */
     std::string get_email();
 
-    void complete_course(Course* ptr);
+    void complete_course(Course* ptr, Instance* inst);
 
     bool if_not_signed(Instance* ptr);
 
     void add_course(Instance* ptr);
 
     void delete_instance(Instance* inst);
+
+    void print_current_courses();
+
+    void print_completed();
+    void add_credits();
+    int get_account_number();
+    std::string get_name();
+    int get_credits();
 
 private:
     std::string full_name_;
@@ -59,6 +67,7 @@ private:
     const int account_number_;
     std::vector<Instance*> current_;
     std::vector<Course*> completed_;
+    int credits_;
 };
 
 #endif // ACCOUNT_HH

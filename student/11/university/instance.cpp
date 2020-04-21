@@ -62,7 +62,28 @@ string Instance::get_instance()
     return instance_;
 }
 
-std::vector<Account *> Instance::get_participants()
+std::vector<Account*> Instance::get_participants()
 {
     return participants_;
+}
+
+string Instance::get_course_id()
+{
+    return course_id_;
+}
+
+Course *Instance::get_course()
+{
+    return course_ptr_;
+}
+
+string Instance::get_starting_date()
+{
+    string d = to_string(s_day_) + "." + to_string(s_month_) + "." + to_string(s_year_);
+    return d;
+}
+
+void Instance::set_course_ptr(Course *ptr)
+{
+    course_ptr_ = ptr;
 }

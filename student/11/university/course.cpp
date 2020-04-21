@@ -101,4 +101,14 @@ int Course::get_credits() const
     return credits_;
 }
 
+std::string Course::get_name()
+{
+    return name_;
+}
+
+std::vector<Instance *> Course::get_instances()
+{
+    return instances_;
+}
+
 

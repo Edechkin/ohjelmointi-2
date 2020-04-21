@@ -30,8 +30,11 @@ std::string Account::get_email()
     return email_;
 }
 
-void Account::complete_course(Course *ptr){
+void Account::complete_course(Course *ptr, Instance* inst){
     completed_.push_back(ptr);
+    delete_instance(inst);
+    //add_credits();
+    std::cout << "Course completed." << std::endl;
 }
 
 bool Account::if_not_signed(Instance *ptr){
@@ -46,15 +49,14 @@ bool Account::if_not_signed(Instance *ptr){
 
 void Account::add_course(Instance *ptr){
     current_.push_back(ptr);
-    delete_instance(ptr);
-    std::cout << "Course completed." << std::endl;
+
 }
 
 
 
 void Account::delete_instance(Instance *inst){
 
-        std::vector<Instance*>::iterator iter =current_.begin();
+        std::vector<Instance*>::iterator iter = current_.begin();
        /* for (iter = current_.begin(); iter <= current_.end(); iter++){
             if (current_.at(iter)->get_instance() == inst){
                 current_.erase(iter);
@@ -66,11 +68,55 @@ void Account::delete_instance(Instance *inst){
                 current_.erase(iter);
                 return;
             }
-
-            }
             ++iter;
+            }
 
 
+
+}
+
+void Account::print_current_courses()
+{
+
+    for (Instance* i : current_){
+        std::cout << i->get_course_id() << " : " << i->get_course()->get_name()
+                  << " " << i->get_instance() << std::endl;
+
+    }
+
+}
+
+void Account::print_completed()
+{
+
+    if (!completed_.empty()){
+        for (Course* i : completed_){
+            std::cout << i->get_code() << " : " << i->get_name() << std::endl;
+        }
+    }
+    credits_ = 5 * completed_.size();
+    std::cout << "Total credits: " << credits_ << std::endl;
+
+}
+
+/*void Account::add_credits()
+{
+    credits_ += 5;
+}
+*/
+int Account::get_account_number()
+{
+    return account_number_;
+}
+
+std::string Account::get_name()
+{
+    return full_name_;
+}
+
+int Account::get_credits()
+{
+    return credits_;
 }
 
 
