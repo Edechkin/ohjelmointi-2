@@ -132,7 +132,7 @@ void University::sign_up_on_course(Params params){
     }
 
 
-
+    Account* acc = accounts_.at(std::stoi(params.at(2)));
     Instance* inst = courses_.at(params.at(0))->get_instance(params.at(1));
     int year = utils::today.get_year();
     int month = utils::today.get_month();
@@ -142,17 +142,26 @@ void University::sign_up_on_course(Params params){
         return;
     }
 
-   if (!inst->if_not_already_signed(accounts_.at(std::stoi(params.at(2))))){
+   if (!inst->if_not_signed(accounts_.at(std::stoi(params.at(2))))){
         std::cout << ALREADY_REGISTERED << std::endl;
         return;
     }
     inst->add_participant(accounts_.at(std::stoi(params.at(2))));
+    acc->add_course(inst);
     std::cout << "Signed up on the course instance." << std::endl;
 }
 
 void University::complete_course(Params params){
-
-
+    if(param_errors(params)){
+        return;
+    }
+    Instance* inst = courses_.at(params.at(0))->get_instance(params.at(1));
+    Account* acc = accounts_.at(std::stoi(params.at(2)));
+    if (acc->if_not_signed(inst)){
+        std::cout << "No signups found on this instance." << std::endl;
+        return;
+    }
+    acc->complete_course(courses_.at(params.at(0)));
 }
 
 void University::print_signups(Params params){
@@ -192,4 +201,23 @@ void University::advance_by_period(Params)
     std::cout << "New date is ";
     utils::today.print();
     std::cout << std::endl;
+}
+
+bool University::param_errors(Params params)
+{
+    if ( courses_.find(params.at(0)) == courses_.end() ){
+        std::cout << CANT_FIND << params.at(0) << std::endl;
+        return true;
+    }
+
+    if (!courses_.at(params.at(0))->has_instance(params.at(1))){
+        std::cout << CANT_FIND << params.at(1) << std::endl;
+        return true;
+    }
+
+    if ( accounts_.find(std::stoi(params.at(2))) == accounts_.end() ){
+        std::cout << CANT_FIND << params.at(2) << std::endl;
+        return true;
+    }
+    return false;
 }

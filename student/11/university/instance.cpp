@@ -29,7 +29,7 @@ void Instance::add_participant(Account* ptr){
     participants_.push_back(ptr);
 }
 
-bool Instance::if_not_already_signed(Account* ptr){
+bool Instance::if_not_signed(Account* ptr){
 
     if (find(participants_.begin(), participants_.end(), ptr)
             == participants_.end()){
@@ -57,7 +57,7 @@ void Instance::set_starting_date(int year, int month, int day){
     s_day_ = day;
 }
 
-string Instance::get_instance() const
+string Instance::get_instance()
 {
     return instance_;
 }

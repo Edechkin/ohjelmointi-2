@@ -32,7 +32,7 @@ public:
     void print_students() const;
     bool is_named(const std::string& name) const;
     void add_participant(Account *ptr);
-    bool if_not_already_signed(Account* ptr);
+    bool if_not_signed(Account* ptr);
 
     /**
      * @brief check_date
@@ -43,7 +43,7 @@ public:
      */
     bool check_date(int year, int month, int day);
     void set_starting_date(int year, int month, int day);
-    std::string get_instance() const;
+    std::string get_instance();
     std::vector<Account*> get_participants();
 
 private:

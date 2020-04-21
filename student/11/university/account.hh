@@ -43,6 +43,14 @@ public:
      */
     std::string get_email();
 
+    void complete_course(Course* ptr);
+
+    bool if_not_signed(Instance* ptr);
+
+    void add_course(Instance* ptr);
+
+    void delete_instance(Instance* inst);
+
 private:
     std::string full_name_;
     std::string last_name_;
