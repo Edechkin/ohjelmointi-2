@@ -175,7 +175,7 @@ void University::print_signups(Params params){
         std::cout << inst->get_instance() << std::endl;
         std::vector<Account*> p = inst->get_participants();
         std::cout << INDENT << "Starting date: " << inst->get_starting_date() << std::endl;
-        std::cout  << INDENT << "Among of students: " << p.size() << std::endl;
+        std::cout  << INDENT << "Amount of students: " << p.size() << std::endl;
         for (Account* it : p){
             std::cout << INDENT << it->get_account_number() << ": " << it->get_name() <<
                          ", " << it->get_email() << std::endl;

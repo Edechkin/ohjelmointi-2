@@ -11,6 +11,8 @@ Instance::Instance(string course_id, string instance):
 
 void Instance::print() const  {
     std::cout << instance_ << std::endl;
+    std::cout << s_day_ << "." << s_month_ << "." << s_year_ << std::endl;
+    std::cout << "Amount of students: " << participants_.size() << std::endl;
 }
 
 void Instance::print_students() const{
