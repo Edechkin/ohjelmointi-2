@@ -31,14 +31,30 @@ public:
     void print() const;
     void print_students() const;
     bool is_named(const std::string& name) const;
-    bool add_participant(Account *ptr);
-    bool check_date();
+    void add_participant(Account *ptr);
+    bool if_not_already_signed(Account* ptr);
+
+    /**
+     * @brief check_date
+     * @param year
+     * @param month
+     * @param day
+     * @return false if current date is past instances starting date
+     */
+    bool check_date(int year, int month, int day);
+    void set_starting_date(int year, int month, int day);
+    std::string get_instance() const;
+    std::vector<Account*> get_participants();
+
 private:
     std::string starting_date_;
+    int s_year_;
+    int s_month_;
+    int s_day_;
     std::string instance_;
     Course* course_ptr_;
     std::string course_id_;
-    std::vector<Account*> participation_list_;
+    std::vector<Account*> participants_;
 };
 
 #endif // INSTANCE_HH

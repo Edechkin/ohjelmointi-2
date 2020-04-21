@@ -13,6 +13,10 @@ void Instance::print() const  {
     std::cout << instance_ << std::endl;
 }
 
+void Instance::print_students() const{
+
+}
+
 bool Instance::is_named(const std::string& name) const{
     if (name == instance_){
         return true;
@@ -20,20 +24,45 @@ bool Instance::is_named(const std::string& name) const{
     return false;
 }
 
-bool Instance::add_participant(Account* ptr){
-    if (check_date()){
-        if (find(participation_list_.begin(), participation_list_.end(), ptr)
-                == participation_list_.end()){
-            participation_list_.push_back(ptr);
-            return true;
+
+void Instance::add_participant(Account* ptr){
+    participants_.push_back(ptr);
+}
+
+bool Instance::if_not_already_signed(Account* ptr){
+
+    if (find(participants_.begin(), participants_.end(), ptr)
+            == participants_.end()){
+        return true;
+    }
+    return false;
+}
+
+
+bool Instance::check_date(int year, int month, int day) {
+    if (year <= s_year_ ){
+        if (month <= s_month_){
+            if (day <= s_day_){
+                return true;
+            }
         }
     }
     return false;
 }
 
-bool Instance::check_date() {
+void Instance::set_starting_date(int year, int month, int day){
 
-
+    s_year_ = year;
+    s_month_ = month;
+    s_day_ = day;
 }
 
-void Instance::print_students() const{}
+string Instance::get_instance() const
+{
+    return instance_;
+}
+
+std::vector<Account *> Instance::get_participants()
+{
+    return participants_;
+}

@@ -107,21 +107,55 @@ void University::add_instance(Params params) {
     }
 
     Instance* n_instance = new Instance((params.at(0)), params.at(1));
+    int year = utils::today.get_year();
+    int month = utils::today.get_month();
+    int day = utils::today.get_day();
+    n_instance->set_starting_date(year, month, day);
     courses_.at(params.at(0))->new_instance(n_instance);
 
 }
 
-void University::sign_up_on_course(Params params) {
+void University::sign_up_on_course(Params params){
+    if ( courses_.find(params.at(0)) == courses_.end() ){
+        std::cout << CANT_FIND << params.at(0) << std::endl;
+        return;
+    }
+
+    if (!courses_.at(params.at(0))->has_instance(params.at(1))){
+        std::cout << CANT_FIND << params.at(1) << std::endl;
+        return;
+    }
+
+    if ( accounts_.find(std::stoi(params.at(2))) == accounts_.end() ){
+        std::cout << CANT_FIND << params.at(2) << std::endl;
+        return;
+    }
+
+
+
+    Instance* inst = courses_.at(params.at(0))->get_instance(params.at(1));
+    int year = utils::today.get_year();
+    int month = utils::today.get_month();
+    int day = utils::today.get_day();
+    if (!inst->check_date(year, month, day)){
+        std::cout << LATE << std::endl;
+        return;
+    }
+
+   if (!inst->if_not_already_signed(accounts_.at(std::stoi(params.at(2))))){
+        std::cout << ALREADY_REGISTERED << std::endl;
+        return;
+    }
+    inst->add_participant(accounts_.at(std::stoi(params.at(2))));
+    std::cout << "Signed up on the course instance." << std::endl;
+}
+
+void University::complete_course(Params params){
 
 
 }
 
-void University::complete_course(Params params) {
-
-
-}
-
-void University::print_signups(Params params) {
+void University::print_signups(Params params){
 
 
 }
