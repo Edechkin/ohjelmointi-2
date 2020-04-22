@@ -1,3 +1,10 @@
+/* This program "illustrates" a University information system.
+* Name: Eetu Jokinen
+* Student number: 273281
+* UserID: teekkart ( Necessary due to gitlab folder naming. )
+* eetu.jokinen@tuni.fi
+* */
+
 #include "course.hh"
 
 Course::Course(std::string code, std::string name, int credits):
@@ -20,6 +27,7 @@ void Course::print_info(bool print_new_line)
         std::cout << std::endl;
     }
 }
+
 
 void Course::print_staff()
 {

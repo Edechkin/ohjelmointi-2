@@ -1,3 +1,10 @@
+/* This program "illustrates" a University information system.
+* Name: Eetu Jokinen
+* Student number: 273281
+* UserID: teekkart ( Necessary due to gitlab folder naming. )
+* eetu.jokinen@tuni.fi
+* */
+
 #include "account.hh"
 #include "utils.hh"
 #include "instance.hh"
@@ -55,14 +62,7 @@ void Account::add_course(Instance *ptr){
 
 
 void Account::delete_instance(Instance *inst){
-
         std::vector<Instance*>::iterator iter = current_.begin();
-       /* for (iter = current_.begin(); iter <= current_.end(); iter++){
-            if (current_.at(iter)->get_instance() == inst){
-                current_.erase(iter);
-            }
-        }
-*/
         for(Instance* instance : current_){
             if(instance == inst){
                 current_.erase(iter);
@@ -70,9 +70,6 @@ void Account::delete_instance(Instance *inst){
             }
             ++iter;
             }
-
-
-
 }
 
 void Account::print_current_courses()
@@ -81,9 +78,7 @@ void Account::print_current_courses()
     for (Instance* i : current_){
         std::cout << i->get_course_id() << " : " << i->get_course()->get_name()
                   << " " << i->get_instance() << std::endl;
-
     }
-
 }
 
 void Account::print_completed()
@@ -99,11 +94,6 @@ void Account::print_completed()
 
 }
 
-/*void Account::add_credits()
-{
-    credits_ += 5;
-}
-*/
 int Account::get_account_number()
 {
     return account_number_;
@@ -118,6 +108,4 @@ int Account::get_credits()
 {
     return credits_;
 }
-
-
 

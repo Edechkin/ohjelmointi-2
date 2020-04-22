@@ -1,3 +1,10 @@
+/* This program "illustrates" a University information system.
+* Name: Eetu Jokinen
+* Student number: 273281
+* UserID: teekkart ( Necessary due to gitlab folder naming. )
+* eetu.jokinen@tuni.fi
+* */
+
 #include "cli.hh"
 #include "utils.hh"
 #include <fstream>
