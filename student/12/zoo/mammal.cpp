@@ -5,7 +5,7 @@ Mammal::Mammal(): Animal("Kip kop kip kop")
 
 }
 
-void Mammal::suckle(std::ostream &output)
+void Mammal::suckle(std::ostream &output) const
 {
- std::cout << "Mus mus" << std::endl;
+    output << "Mus mus" << std::endl;
 }

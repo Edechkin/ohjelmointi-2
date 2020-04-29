@@ -5,7 +5,7 @@ Giraffe::Giraffe()
 
 }
 
-void Giraffe::make_noise(std::ostream &output)
+void Giraffe::make_noise(std::ostream& output) const
 {
- std::cout << "Ori ori ori!" << std::endl;
+    output << "Ori ori ori!" << std::endl;
 }

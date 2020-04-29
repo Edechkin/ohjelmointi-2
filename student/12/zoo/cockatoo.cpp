@@ -5,7 +5,7 @@ Cockatoo::Cockatoo()
 
 }
 
-void Cockatoo::sing(std::ostream &output) const
+void Cockatoo::sing(std::ostream& output) const
 {
-    std::cout << "Kee-ow kee-ow!" << std::endl;
+    output << "Kee-ow kee-ow!" << std::endl;
 }
