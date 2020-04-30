@@ -21,7 +21,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    const int RGB_VALUE_MAX = 99;
+    const int RGB_VALUE_MAX = 255;
 };
 
 #endif // MAINWINDOW_HH
