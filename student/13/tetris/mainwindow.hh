@@ -21,10 +21,12 @@ public:
     ~MainWindow();
 
     void keyPressEvent(QKeyEvent* event) override;
-    void keyReleaseEvent(QKeyEvent* event) override;
+
 
 private slots:
     void on_startPushButton_clicked();
+
+    void hold_disable();
 
     void seconds_gone();
 private:
@@ -109,6 +111,8 @@ private:
     void build_pyramid();
     void build_step_left();
     void build_step_right();
+
+    bool been_held = false;
 
 
 };

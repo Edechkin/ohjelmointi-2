@@ -419,6 +419,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Add more initial settings and connect calls, when needed.
 
     hold_timer_ = new QTimer;
+    connect(hold_timer_, SIGNAL(timeout()), this, SLOT(hold_disable()));
 
     clock_ = new QTimer;
     connect(clock_, SIGNAL(timeout()), this, SLOT(seconds_gone()));
@@ -544,22 +545,21 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
                 }
             }
         }
-        if(event->key() == Qt::Key_H){
-            timer_->stop();
+        if (!been_held){
+            if(event->key() == Qt::Key_H){
+                timer_->stop();
+                hold_timer_->start(3000);
+            }
         }
 
     }
 }
 
-void MainWindow::keyReleaseEvent(QKeyEvent* event) {
-    if(event->key() == Qt::Key_H) {
-        timer_->start();
 
-    }
-}
 
 void MainWindow::on_startPushButton_clicked()
 {
+    ui->timerLabel->setText("Timer");
     seconds_ = 0;
     minutes_ = 0;
     ui->lcdNumberMin->display(0);
@@ -573,6 +573,17 @@ void MainWindow::on_startPushButton_clicked()
     ui->startPushButton->setDisabled(true);
     timer_->start(250);
 
+}
+
+void MainWindow::hold_disable()
+{
+    if( been_held){
+        hold_timer_->stop();
+        been_held = false;
+    } else{
+        timer_->start();
+        been_held = true;
+    }
 }
 
 void MainWindow::tetro_move()
