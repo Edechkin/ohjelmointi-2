@@ -40,8 +40,8 @@
    <widget class="QLCDNumber" name="lcdNumberSec">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>70</y>
+      <x>340</x>
+      <y>110</y>
       <width>64</width>
       <height>23</height>
      </rect>
@@ -50,11 +50,63 @@
    <widget class="QLCDNumber" name="lcdNumberMin">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>340</x>
       <y>90</y>
       <width>64</width>
       <height>23</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>110</y>
+      <width>63</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sec</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>90</y>
+      <width>63</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Min</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="timerLabel">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>30</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Timer</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>110</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Press H to hold</string>
     </property>
    </widget>
   </widget>

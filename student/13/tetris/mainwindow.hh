@@ -20,9 +20,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
+
 private slots:
     void on_startPushButton_clicked();
 
+    void seconds_gone();
 private:
     Ui::MainWindow *ui;
 
@@ -32,9 +36,19 @@ private:
 
     std::vector<std::vector<int>> grid_;
 
+    QTimer* hold_timer_;
     QTimer* timer_;
+    QTimer* clock_;
+    int minutes_;
+    int seconds_;
 
     std::vector<QGraphicsRectItem*> cur_tetro_;
+
+    void game_over();
+
+    bool can_create(int i);
+
+    void reset_grid();
 
     // Constants describing scene coordinates
     // Copied from moving circle example and modified a bit
@@ -60,6 +74,9 @@ private:
                          PYRAMID,
                          STEP_UP_LEFT,
                          NUMBER_OF_TETROMINOS};
+    enum Tetro_directions {DOWN,
+                          LEFT,
+                          RIGHT};
     // From the enum values above, only the last one is needed in this template.
     // Recall from enum type that the value of the first enumerated value is 0,
     // the second is 1, and so on.
@@ -81,6 +98,7 @@ private:
     void create_tetro(int i);
 
     bool is_free_space(qreal x, qreal y);
+    bool can_move(int i);
 
     void update_grid();
 

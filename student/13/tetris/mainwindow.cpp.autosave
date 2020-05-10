@@ -419,6 +419,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Add more initial settings and connect calls, when needed.
 
     hold_timer_ = new QTimer;
+    //connect(hold_timer_, SIGNAL(timeout()))
 
     clock_ = new QTimer;
     connect(clock_, SIGNAL(timeout()), this, SLOT(seconds_gone()));
@@ -544,17 +545,20 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
                 }
             }
         }
-        if(event->key() == Qt::Key_H){
-            timer_->stop();
+        if (!hold_timer_->isActive()){
+            if(event->key() == Qt::Key_H){
+                timer_->stop();
+            }
         }
-
     }
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent* event) {
-    if(event->key() == Qt::Key_H) {
-        timer_->start();
-
+    if (!hold_timer_->isActive()){
+        if(event->key() == Qt::Key_H) {
+            timer_->start();
+    
+        }
     }
 }
 
