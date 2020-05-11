@@ -1,0 +1,32 @@
+In this project is created Tetris with multiple variations from the original
+game. Game begins by pressing start-button. Then a new tetromino appears on top
+of the screen and it starts go down.Player can move the tetromino with A-key
+(to the left), D-key (to the right) or S-key (down). If pressing H-key, tetromino
+stops for 3 seconds and 5 seconds after the stop has ended, H-key can be pressed
+again to stop a tetromino.
+
+Tetrominos stack on top of each other when "colliding" and will stop ultimately
+at the bottom of the scene. Game ends when a new tetromino cannot be created
+anymore to the top row where it has been created before.
+"Good luck!"-text turns to "Game Over".
+
+There is a timer showing the duration of the game and it stops as well when game
+ends. The scene is also cleared when game ends. By pressin restart, timer
+restarts and a new game begins. Start/restart-button is disabled during a game.
+Be sure to play with a big enough screen so that the whole gamescene is visible
+and the tetrominos won't go beneath the "visible" bottom.
+All 7 different tetromino-shapes are included.
+
+Designing decisions and structure:
+When player clicks start-button, clock_timer that is used to display the game time
+to the player begins from 0 seconds. Another timer, timer_ gives timeout-signal which
+begins a sequence of commands (tetro_move) that determines if a tetromino is moved down by a step
+or if new tetromino is created or if the game ends.
+
+When deciding if a tetromino is able to move a step into certain direction, the program
+checks the possibility for every piece of tetromino and if one can't move, then the
+tetromino won't be moved. When checking if a tetromino is going through the gamescene border
+the tetrominos coordinates are used. When checking if it might collide with anoter tetromino,
+the situation is checked when comparing vector grid items equivalent to the coordinates of the pieces of the tetromino.
+When a tetromino is already "settled" on the "board", grid vector itmes that are equivalent
+to the tetromino's coordinates, their values are changed from 0 to 1.

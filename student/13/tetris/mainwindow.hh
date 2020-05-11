@@ -1,3 +1,11 @@
+/* This program is a modified version of a tetris game. Further instructions in
+ * the "instructions"-folder.
+* Name: Eetu Jokinen
+* Student number: 273281
+* UserID: teekkart ( Necessary due to gitlab folder naming. )
+* eetu.jokinen@tuni.fi
+* */
+
 #ifndef MAINWINDOW_HH
 #define MAINWINDOW_HH
 
@@ -5,7 +13,6 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <random>
-#include <iostream>
 #include <QTimer>
 
 namespace Ui {
@@ -24,6 +31,8 @@ public:
 
 
 private slots:
+
+    // Begins the game, is disabled during a game.
     void on_startPushButton_clicked();
 
     void hold_disable();
@@ -52,9 +61,6 @@ private:
 
     void reset_grid();
 
-    // Constants describing scene coordinates
-    // Copied from moving circle example and modified a bit
-    //const int STEP = 0;
     const int BORDER_UP = 0;
     const int BORDER_DOWN = 480; // 260; (in moving circle)
     const int BORDER_LEFT = 0;
@@ -76,24 +82,17 @@ private:
                          PYRAMID,
                          STEP_UP_LEFT,
                          NUMBER_OF_TETROMINOS};
+
     enum Tetro_directions {DOWN,
                           LEFT,
                           RIGHT};
-    // From the enum values above, only the last one is needed in this template.
-    // Recall from enum type that the value of the first enumerated value is 0,
-    // the second is 1, and so on.
-    // Therefore the value of the last one is 7 at the moment.
-    // Remove those tetromino kinds above that you do not implement,
-    // whereupon the value of NUMBER_OF_TETROMINOS changes, too.
-    // You can also remove all the other values, if you do not need them,
-    // but most probably you need a constant value for NUMBER_OF_TETROMINOS.
 
 
     // For randomly selecting the next dropping tetromino
     std::default_random_engine randomEng;
     std::uniform_int_distribution<int> distr;
 
-    // More constants, attibutes, and methods
+
 
     void tetro_move();
 
@@ -102,9 +101,11 @@ private:
     bool is_free_space(qreal x, qreal y);
     bool can_move(int i);
 
+    // When tetromino can't move/is placed grid vector itmes that are equivalent
+    // to the tetromino's coordinates, their values are changed from 0 to 1.
     void update_grid();
 
-    void build_horo();
+    void build_horizontal();
     void build_left();
     void build_right();
     void build_square();
@@ -112,7 +113,7 @@ private:
     void build_step_left();
     void build_step_right();
 
-    bool been_held = false;
+    bool been_held_ = false;
 
 
 };
